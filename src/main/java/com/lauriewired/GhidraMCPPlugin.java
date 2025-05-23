@@ -18,6 +18,7 @@ import ghidra.program.model.pcode.HighFunctionDBUtil;
 import ghidra.program.model.pcode.HighFunctionDBUtil.ReturnCommitOption;
 import ghidra.app.decompiler.DecompInterface;
 import ghidra.app.decompiler.DecompileResults;
+import ghidra.app.decompiler.DecompileOptions;
 import ghidra.app.plugin.PluginCategoryNames;
 import ghidra.app.services.CodeViewerService;
 import ghidra.app.services.ProgramManager;
@@ -806,6 +807,9 @@ public class GhidraMCPPlugin extends Plugin {
 
             DecompInterface decomp = new DecompInterface();
             decomp.openProgram(program);
+            DecompileOptions options = new DecompileOptions();
+            options.setRespectReadOnly(true);
+            decomp.setOptions(options);
             DecompileResults result = decomp.decompileFunction(func, 30, new ConsoleTaskMonitor());
 
             return (result != null && result.decompileCompleted()) 
